@@ -1,0 +1,37 @@
+version: "3.8"
+services:
+  backend:
+    container_name: backend
+    restart: always
+    build: 
+      context: backend
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      - mongo
+    networks:
+      - express-mongo
+    environment: 
+      - PORT=4000
+      - MONGO_URL=mongodb://mongo:27017/santex
+      - FOOTBALL_API_URL=https://api.football-data.org/v4
+      - FOOTBALL_API_KEY=<my-api-key>
+    ports: 
+      - 4000:4000
+
+  mongo:
+    container_name: mongo
+    restart: always
+    image: mongo:4.2.0
+    volumes:
+      - ./data:/data/db
+    networks:
+      - express-mongo
+    ports:
+      - 27017:27017
+
+networks:
+  express-mongo:
+volumes:
+  data:

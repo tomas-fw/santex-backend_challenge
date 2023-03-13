@@ -1,0 +1,52 @@
+type Query {
+  players(leagueCode: String!, teamName: String): PlayersQueryResponse!
+  team(name: String!, displayMembers: Boolean): TeamQueryResponse!
+}
+
+type PlayersQueryResponse {
+  players: [Player]
+  coaches: [Coach]
+}
+
+type TeamQueryResponse {
+  team: Team
+  players: [Player]
+  coaches: [Coach]
+}
+
+type Mutation {
+  importLeague(leagueCode: String!): Leage
+}
+
+type Leage {
+  id: ID!
+  name: String!
+  code: String!
+  areaName: String!
+}
+
+type Team {
+  id: ID!
+  name: String!
+  shortName: String!
+  tla: String!
+  areaName: String!
+  address: String!
+}
+
+type Player {
+  id: ID!
+  name: String!
+  position: String
+  dateOfBirth: String
+  nationality: String
+  teamName: String!
+}
+
+type Coach {
+  id: ID!
+  name: String
+  dateOfBirth: String
+  nationality: String
+  teamName: String!
+}
